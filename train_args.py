@@ -16,5 +16,6 @@ training_args = TrainingArguments(
     logging_steps=300,
     remove_unused_columns=False,
     label_names=["labels"],
+    report_to = "none"
 )
 
