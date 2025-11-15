@@ -3,7 +3,7 @@ from data_pipeline import build_vqa_dataset
 from dataloader import ImageCaptioningDataset, collate_fn
 from train_args import training_args
 from transformers import Trainer
-from datasets import load_dataset, train_test_split
+from datasets import load_dataset
 from model import load_model
 
 
@@ -35,7 +35,7 @@ def train():
     }
 
  
-    processor, model =  load_model()
+    model, processor = load_model()
 
     # This will now show only the parameters added to the Q-Former layers
     model.print_trainable_parameters()
