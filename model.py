@@ -7,7 +7,7 @@ from peft import LoraConfig, get_peft_model
 
 def load_model():
     # Load configuration from YAML file
-    config_path = os.path.join(os.path.dirname(__file__), 'configs', 'qlora_config.yaml')
+    config_path = os.path.join(os.path.dirname(__file__), 'config', 'qlora_config.yaml')
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
 
