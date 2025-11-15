@@ -1,0 +1,6 @@
+peft
+transformers
+bitsandbytes
+datasets
+pyyaml
+accelerate
