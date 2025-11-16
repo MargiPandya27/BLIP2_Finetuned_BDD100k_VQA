@@ -29,9 +29,10 @@ The `VehicleDistanceEstimator` uses a simplified **Pinhole Camera Model** to est
 
 The distance is estimated using:
 
-\[
+$$
 Z = \frac{K \cdot W_{\text{real}}}{w}
-\]
+$$
+
 
 ### Parameter Summary
 
