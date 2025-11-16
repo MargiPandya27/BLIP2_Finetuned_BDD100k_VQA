@@ -21,11 +21,11 @@ The pipeline consists of three major components:
 
 ---
 
-# 1. 🧠 Context Extraction (Distance Estimation)
+# 1. Context Extraction (Distance Estimation)
 
 The `VehicleDistanceEstimator` uses a simplified **Pinhole Camera Model** to estimate the distance to a vehicle using only bounding box size (no calibration required).
 
-### 📌 Formula Used
+### Formula Used
 
 The distance is estimated using:
 
@@ -33,7 +33,7 @@ The distance is estimated using:
 Z = \frac{K \cdot W_{\text{real}}}{w}
 \]
 
-### 🔍 Parameter Summary
+### Parameter Summary
 
 | Parameter | Code Variable | Value | Description |
 |----------|---------------|--------|-------------|
@@ -42,7 +42,7 @@ Z = \frac{K \cdot W_{\text{real}}}{w}
 | \(W_{real}\) | `avg_vehicle_width` / `avg_vehicle_height` | **1.8 m**, **1.5 m** | Real-world vehicle size |
 | \(w\) | `bbox_width` / `bbox_height` | — | Vehicle pixel size |
 
-### 🚙 Selecting the Correct Vehicle
+### Selecting the Correct Vehicle
 
 From all vehicles, the algorithm selects the one that is:
 
@@ -53,7 +53,7 @@ This avoids picking vehicles in other lanes.
 
 ---
 
-# 2. 📏 Proximity Classification
+# 2. Proximity Classification
 
 Distance \(Z\) is mapped to qualitative proximity:
 
@@ -65,7 +65,7 @@ Distance \(Z\) is mapped to qualitative proximity:
 
 ---
 
-# 3. 🧮 Decision Logic (`decide_answer`)
+# 3. Decision Logic (`decide_answer`)
 
 The final safety recommendation is determined by:
 
@@ -73,7 +73,7 @@ The final safety recommendation is determined by:
 - Traffic light color  
 - Randomly sampled question type  
 
-### 🚦 Safety Rules
+### Safety Rules
 
 | Condition | Answer |
 |----------|--------|
@@ -83,7 +83,7 @@ The final safety recommendation is determined by:
 
 ---
 
-# 📝 Example VQA Output
+# Example VQA Output
 
 ```json
 {
