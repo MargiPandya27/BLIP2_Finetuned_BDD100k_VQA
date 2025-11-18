@@ -89,10 +89,7 @@ This automatically:
 
 
 ### 3. Output
-Fine-tuned LoRA adapter is saved to:
-
-./blip2-finetuned-vqa/
-If running on Colab, saving to Google Drive is recommended.
+Fine-tuned LoRA adapter is saved to ./blip2-finetuned-vqa/. If running on Colab, saving to Google Drive is recommended.
 
 ## Dataset Pipeline
 
