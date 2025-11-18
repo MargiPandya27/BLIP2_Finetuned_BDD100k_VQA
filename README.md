@@ -26,7 +26,7 @@ This results in a high-quality VQA dataset for training **autonomous driving rea
 
 ### Example 1  
 **Input Image:**  
-<img src="https://github.com/MargiPandya27/Blip2_Finetuning_Scene_Captioning/blob/main/logs/demo1.png" width="400"/>
+<img src="https://github.com/MargiPandya27/BLIP2_Finetuned_BDD100k_VQA/blob/main/logs/demo1.png" width="400"/>
 
 **Generated VQA Sample:**
 Question: Does the car need to stop?
@@ -37,7 +37,7 @@ Answer: No, it is not safe to proceed because a close vehicle is ahead.
 
 ### Example 2  
 **Input Image:**  
-<img src="https://github.com/MargiPandya27/Blip2_Finetuning_Scene_Captioning/blob/main/logs/demo2.png" width="400"/>
+<img src="https://github.com/MargiPandya27/BLIP2_Finetuned_BDD100k_VQA/blob/main/logs/demo2.png" width="400"/>
 
 **Generated VQA Sample:**
 
