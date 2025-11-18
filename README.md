@@ -53,7 +53,7 @@ Answer: Yes, it is safe to proceed because the traffic light is green and no clo
 The model is based on **BLIP-2 (OPT-2.7B)**.  
 The training process:
 
-1. First fine-tunes BLIP-2 on **BDD100K scene captioning**  
+1. First fine-tunes BLIP-2 on **BDD100K scene captioning** (https://github.com/MargiPandya27/Blip2_Finetuning_Scene_Captioning) 
 2. Then adapts the model to the **VQA risk-assessment task** using **QLoRA**  
 3. Produces a LoRA adapter that can be merged or loaded into BLIP-2 for inference
 
@@ -66,37 +66,30 @@ This two-stage approach improves scene understanding and reduces overfitting.
 ### 1. Install Dependencies
 ```bash
 pip install -r requirements.txt
+```
 
 2. Run Training
+   ```bash
 python main.py
+```
 
 
-You can adjust all hyperparameters in:
-
-train_args.py
+You can adjust all hyperparameters in train_args.py
 
 Training Pipeline Includes:
+This automatically:
+- Downloads BDD100K via Kaggle Hub
+- Processes JSON labels into semantic captions
+- Splits data into train/val/test
+- Loads BLIP-2 with LoRA configuration
+- Trains for 5 epochs with:
+  - Batch size: 4 per device
+  - Learning rate: 5e-5
+  - Gradient accumulation: 4 steps
+  - FP16 precision
 
-Loading BDD100K via Kaggle Hub
-
-Processing JSON labels into VQA triplets
-
-Splitting dataset into train/val/test
-
-Loading BLIP-2 with QLoRA configuration
-
-Training for 5 epochs with:
-
-Batch size: 4
-
-Learning rate: 5e-5
-
-Gradient accumulation: 4
-
-FP16 precision
 
 Output
-
 Fine-tuned LoRA adapter is saved to:
 
 ./blip2-finetuned-vqa/
@@ -106,9 +99,7 @@ If running on Colab, saving to Google Drive is recommended.
 
 ## Dataset Pipeline
 
-A complete breakdown of the data processing stages is available in:
-
-data_README.md
+A complete breakdown of the data processing stages is available in data_README.md (https://github.com/MargiPandya27/BLIP2_Finetuned_BDD100k_VQA/blob/main/data_README.md).
 
 
 ## References
