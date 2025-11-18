@@ -68,11 +68,10 @@ This two-stage approach improves scene understanding and reduces overfitting.
 pip install -r requirements.txt
 ```
 
-2. Run Training
-   ```bash
+### 2. Run Training
+```bash
 python main.py
 ```
-
 
 You can adjust all hyperparameters in train_args.py
 
@@ -89,12 +88,10 @@ This automatically:
   - FP16 precision
 
 
-Output
+### 3. Output
 Fine-tuned LoRA adapter is saved to:
 
 ./blip2-finetuned-vqa/
-
-
 If running on Colab, saving to Google Drive is recommended.
 
 ## Dataset Pipeline
@@ -104,8 +101,6 @@ A complete breakdown of the data processing stages is available in data_README.m
 
 ## References
 
-BLIP-2 (Salesforce): https://huggingface.co/Salesforce/blip2-opt-2.7b
-
-BDD100K Dataset: https://bdd100k.com/
-
-PEFT / LoRA: https://github.com/huggingface/peft
+- BLIP-2 (Salesforce): https://huggingface.co/Salesforce/blip2-opt-2.7b
+- BDD100K Dataset: https://bdd100k.com/
+- PEFT / LoRA: https://github.com/huggingface/peft
