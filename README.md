@@ -22,12 +22,7 @@ This results in a high-quality VQA dataset for training **autonomous driving rea
 
 ---
 
-## Output Examples
-
-Demo @
-<a href="https://huggingface.co/spaces/<USERNAME>/<SPACE_NAME>">
-  <img src="https://raw.githubusercontent.com/huggingface/branding/main/square-logo.svg" width="110"/>
-</a>
+## Output Examples [![HuggingFace Spaces](https://img.shields.io/badge/🤗-Demo%20on%20Spaces-blue)](https://huggingface.co/spaces/MargiPandya/blip2-vqa)
 
 
 ### Example 1  
