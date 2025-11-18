@@ -35,9 +35,10 @@ Demo @
 <img src="https://github.com/MargiPandya27/BLIP2_Finetuned_BDD100k_VQA/blob/main/logs/demo1.png" width="400"/>
 
 **Generated VQA Sample:**
-**Question**: Does the car need to stop?
-**Answer**: No, it is not safe to proceed because a close vehicle is ahead.
-
+```
+- **Question**: Does the car need to stop?
+- **Answer**: No, it is not safe to proceed because a close vehicle is ahead.
+```
 
 ---
 
@@ -46,11 +47,10 @@ Demo @
 <img src="https://github.com/MargiPandya27/BLIP2_Finetuned_BDD100k_VQA/blob/main/logs/demo2.png" width="400"/>
 
 **Generated VQA Sample:**
-
-
-**Question**: Is it safe to proceed?
-**Answer**: Yes, it is safe to proceed because the traffic light is green and no close vehicle is ahead.
-
+```
+- **Question**: Is it safe to proceed?
+- **Answer**: Yes, it is safe to proceed because the traffic light is green and no close vehicle is ahead.
+```
 
 ---
 
