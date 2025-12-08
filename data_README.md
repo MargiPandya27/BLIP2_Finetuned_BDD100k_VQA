@@ -57,11 +57,11 @@ This avoids picking vehicles in other lanes.
 
 Distance \(Z\) is mapped to qualitative proximity:
 
-| Proximity | Range | Variable |
-|----------|--------|-----------|
-| **Close** | \(Z \le 8.0\) m | `CLOSE_DISTANCE_THRESHOLD_M` |
-| **Medium** | \(8.0 < Z \le 25.0\) m | `MEDIUM_DISTANCE_THRESHOLD_M` |
-| **Far** | \(Z > 25.0\) m | — |
+| **Proximity** | **Range**                           |
+|---------------|--------------------------------------|
+| Close         | \( Z \le 8.0\,\text{m} \)            |
+| Medium        | \( 8.0 < Z \le 25.0\,\text{m} \)     |
+| Far           | \( Z > 25.0\,\text{m} \)             |
 
 ---
 
