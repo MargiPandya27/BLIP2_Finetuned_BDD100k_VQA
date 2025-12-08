@@ -3,8 +3,7 @@ Transforming BDD100K driving annotations into a **Visual Question Answering (VQA
 
 This system generates:  
 - A question (e.g., *“Is it safe to proceed?”*)  
-- A safety-based answer (*Yes / No / Slow Down*)  
-- A natural-language rationale  
+- A safety-based answer (*Yes / No / Slow Down*) with natural-language rationale  
 - Metadata (distance, traffic light color, etc.)
 
 It uses **geometric reasoning** + **traffic signals** to infer driving risk.
@@ -15,7 +14,7 @@ It uses **geometric reasoning** + **traffic signals** to infer driving risk.
 
 The pipeline consists of three major components:
 
-1. **Context Extraction (Distance Estimation)**  
+1. **Distance Estimation**  
 2. **Proximity Classification**  
 3. **Decision + Rationale Generation**
 
@@ -72,7 +71,6 @@ The final safety recommendation is determined by:
 
 - Vehicle proximity  
 - Traffic light color  
-- Randomly sampled question type  
 
 ### Safety Rules
 
