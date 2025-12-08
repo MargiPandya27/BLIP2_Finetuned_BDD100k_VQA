@@ -55,13 +55,13 @@ This avoids picking vehicles in other lanes.
 
 # 2. Proximity Classification
 
-Distance \(Z\) is mapped to qualitative proximity:
+Distance (Z) is mapped to qualitative proximity:
 
-| **Proximity** | **Range**                           |
-|---------------|--------------------------------------|
-| Close         | \( Z \le 8.0\,\text{m} \)            |
-| Medium        | \( 8.0 < Z \le 25.0\,\text{m} \)     |
-| Far           | \( Z > 25.0\,\text{m} \)             |
+| **Proximity** | **Range**        |
+|---------------|------------------|
+| Close         | Z ≤ 8.0 m        |
+| Medium        | 8.0 < Z ≤ 25.0 m |
+| Far           | Z > 25.0 m       |
 
 ---
 
