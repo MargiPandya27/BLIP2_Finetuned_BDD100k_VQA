@@ -16,7 +16,7 @@ The pipeline integrates:
 - **Pinhole Camera Geometry** → Estimate distance to the front vehicle  
 - **Label Reasoning** → Detect traffic lights, weather, scene context  
 - **Rule-based Safety Logic** → Decide *Yes*, *No*, or *Slow Down*  
-- **Rationale Generation** → Provide interpretable explanations  
+- **Rationale Generation** → Provide interpretable explanations in the answer
 
 This results in a high-quality VQA dataset for training **autonomous driving reasoning models**.
 
