@@ -1,0 +1,44 @@
+schema: '2.0'
+stages:
+  prepare_data:
+    cmd: python -m src.pipeline.prepare_data
+    deps:
+    - path: data/dummy_bdd100k/bdd100k/labels/bdd100k_labels_images_val.json
+      hash: md5
+      md5: 6e03b3467a1bb4accc94b075500f1381
+      size: 2900
+    - path: src/components/data_ingestion.py
+      hash: md5
+      md5: 14718328d86f77703b24f7423cfe1300
+      size: 6051
+    - path: src/components/data_transformation.py
+      hash: md5
+      md5: f8e2ba1ab9d0c698594fb8272e188ae9
+      size: 13219
+    - path: src/expection.py
+      hash: md5
+      md5: ca43d3a50cc78d04684b3db887523bb0
+      size: 835
+    - path: src/logger.py
+      hash: md5
+      md5: f967184462cb3af1b80949e0b171d0a7
+      size: 692
+    - path: src/pipeline/prepare_data.py
+      hash: md5
+      md5: a82e9a939fe11fc3b97b66848301902b
+      size: 2225
+    - path: src/utils.py
+      hash: md5
+      md5: cf2fbaa34eea8432dc649c9c1e5bc167
+      size: 755
+    params:
+      params.yaml:
+        data.kaggle_dataset: solesensei/solesensei_bdd100k
+        data.processed_vqa_path: data/processed/bdd100k_risk_vqa.json
+        data.random_seed: 42
+        data.use_dummy: true
+    outs:
+    - path: data/processed/bdd100k_risk_vqa.json
+      hash: md5
+      md5: 9276687fb6bf80c94f4e191093f2d74a
+      size: 2653

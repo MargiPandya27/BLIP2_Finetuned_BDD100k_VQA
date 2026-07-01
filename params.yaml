@@ -1,0 +1,5 @@
+data:
+  use_dummy: true
+  random_seed: 42
+  kaggle_dataset: solesensei/solesensei_bdd100k
+  processed_vqa_path: data/processed/bdd100k_risk_vqa.json

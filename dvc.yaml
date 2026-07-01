@@ -1,0 +1,19 @@
+stages:
+  prepare_data:
+    cmd: python -m src.pipeline.prepare_data
+    deps:
+      - src/components/data_ingestion.py
+      - src/components/data_transformation.py
+      - src/pipeline/prepare_data.py
+      - src/utils.py
+      - src/logger.py
+      - src/expection.py
+      - data/dummy_bdd100k/bdd100k/labels/bdd100k_labels_images_val.json
+    params:
+      - params.yaml:
+          - data.use_dummy
+          - data.random_seed
+          - data.kaggle_dataset
+          - data.processed_vqa_path
+    outs:
+      - data/processed/bdd100k_risk_vqa.json
