@@ -6,7 +6,10 @@ artifacts/
 logs/*.log
 .pytest_cache/
 
+
 # DVC: ignore processed data files, but allow *.dvc metadata in git
 /data/processed/*
 !/data/processed/.gitignore
 !/data/processed/*.dvc
+
+artifacts/*

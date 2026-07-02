@@ -1,7 +1,41 @@
-peft
+# Core ML / training
+torch
 transformers
+peft
 bitsandbytes
-datasets
-pyyaml
 accelerate
+
+# Data
 datasets
+numpy
+pillow
+kagglehub==1.0.2
+kagglesdk==0.1.22
+kaggle
+
+# Config & environment
+pyyaml
+python-dotenv
+hydra-core
+
+# Experiment tracking & model registry
+wandb
+huggingface_hub
+
+# Data versioning
+dvc
+
+# Evaluation metrics
+evaluate
+rouge-score
+
+# Inference / serving
+gradio
+fastapi
+uvicorn
+python-multipart
+
+# Dev / CI
+ruff
+
+-e . 

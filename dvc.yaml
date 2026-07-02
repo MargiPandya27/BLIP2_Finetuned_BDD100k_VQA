@@ -17,3 +17,22 @@ stages:
           - data.processed_vqa_path
     outs:
       - data/processed/bdd100k_risk_vqa.json
+
+  train:
+    cmd: python -m src.pipeline.training_pipeline
+    deps:
+      - src/pipeline/training_pipeline.py
+      - src/training_args.py
+      - src/model.py
+      - src/components/dataloader.py
+      - config/qlora_config.yaml
+      - data/processed/bdd100k_risk_vqa.json
+    params:
+      - params.yaml:
+          - data.processed_vqa_path
+      - .env:
+          - NUM_TRAIN_EPOCHS
+          - LEARNING_RATE
+          - PER_DEVICE_TRAIN_BATCH_SIZE
+    outs:
+      - artifacts/blip2-finetuned-vqa

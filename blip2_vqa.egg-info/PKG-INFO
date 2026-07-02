@@ -1,0 +1,140 @@
+Metadata-Version: 2.4
+Name: blip2-vqa
+Version: 0.1.0
+Summary: BLIP-2 fine-tuning for BDD100K risk assessment VQA
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: torch
+Requires-Dist: transformers
+Requires-Dist: peft
+Requires-Dist: bitsandbytes
+Requires-Dist: accelerate
+Requires-Dist: datasets
+Requires-Dist: numpy
+Requires-Dist: pillow
+Requires-Dist: kagglehub
+Requires-Dist: pyyaml
+Requires-Dist: python-dotenv
+Requires-Dist: hydra-core
+Requires-Dist: wandb
+Requires-Dist: huggingface_hub
+Requires-Dist: dvc
+Requires-Dist: evaluate
+Requires-Dist: rouge-score
+Requires-Dist: gradio
+Requires-Dist: fastapi
+Requires-Dist: uvicorn
+Requires-Dist: ruff
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# BDD100K Risk Assessment VQA Dataset & BLIP-2 Fine-Tuning
+
+## Objective & Overview
+
+This project builds a **Risk Assessment Visual Question Answering (VQA)** dataset from the **BDD100K** autonomous-driving dataset.  
+Instead of captions, the system generates **question–answer–rationale triplets** that capture driving safety and scene understanding.
+
+The goal is to enable models such as **BLIP-2** to answer safety-critical questions like:
+
+- *“Is it safe to proceed?”*  
+- *“Should the car slow down?”*  
+- *“Does the vehicle need to stop?”*  
+
+The pipeline integrates:
+
+- **Pinhole Camera Geometry** → Estimate distance to the front vehicle  
+- **Label Reasoning** → Detect traffic lights, weather, scene context  
+- **Rule-based Safety Logic** → Decide *Yes*, *No*, or *Slow Down*  
+- **Rationale Generation** → Provide interpretable explanations in the answer
+
+This results in a high-quality VQA dataset for training **autonomous driving reasoning models**.
+
+---
+
+## Output Examples [![HuggingFace Spaces](https://img.shields.io/badge/🤗-Demo%20on%20Spaces-blue)](https://huggingface.co/spaces/MargiPandya/blip2-vqa)
+
+
+### Example 1  
+**Input Image:**  
+<img src="https://github.com/MargiPandya27/BLIP2_Finetuned_BDD100k_VQA/blob/main/logs/demo1.png" width="400"/>
+
+**Generated VQA Sample:**
+```
+- **Question**: Does the car need to stop?
+- **Answer**: No, it is not safe to proceed because a close vehicle is ahead.
+```
+
+---
+
+### Example 2  
+**Input Image:**  
+<img src="https://github.com/MargiPandya27/BLIP2_Finetuned_BDD100k_VQA/blob/main/logs/demo2.png" width="400"/>
+
+**Generated VQA Sample:**
+```
+- **Question**: Is it safe to proceed?
+- **Answer**: Yes, it is safe to proceed because the traffic light is green and no close vehicle is ahead.
+```
+
+---
+
+## Model Details
+
+The model is based on **BLIP-2 (OPT-2.7B)**.  
+The training process:
+
+1. First fine-tunes BLIP-2 on **BDD100K scene captioning** (https://github.com/MargiPandya27/Blip2_Finetuning_Scene_Captioning) 
+2. Then adapts the model to the **VQA risk-assessment task** using **QLoRA**  
+3. Produces a LoRA adapter that can be merged or loaded into BLIP-2 for inference
+
+This two-stage approach improves scene understanding and reduces overfitting.
+
+---
+
+## Training
+
+### 1. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Run Training
+```bash
+python main.py
+```
+
+You can adjust all hyperparameters in train_args.py
+
+Training Pipeline Includes:
+This automatically:
+- Downloads BDD100K via Kaggle Hub
+- Processes JSON labels into semantic captions
+- Splits data into train/val/test
+- Loads BLIP-2 with LoRA configuration
+- Trains for 5 epochs with:
+  - Batch size: 4 per device
+  - Learning rate: 5e-5
+  - Gradient accumulation: 4 steps
+  - FP16 precision
+
+
+### 3. Output
+Fine-tuned LoRA adapter is saved to ./blip2-finetuned-vqa/. If running on Colab, saving to Google Drive is recommended.
+
+## Dataset Pipeline
+
+A complete breakdown of the data processing stages is available in data_README.md (https://github.com/MargiPandya27/BLIP2_Finetuned_BDD100k_VQA/blob/main/data_README.md).
+
+
+## References
+
+- BLIP-2 (Salesforce): https://huggingface.co/Salesforce/blip2-opt-2.7b
+- BDD100K Dataset: https://bdd100k.com/
+- PEFT / LoRA: https://github.com/huggingface/peft

@@ -1,0 +1,62 @@
+[
+  {
+    "image": "C:\\Users\\pandy\\Downloads\\Blip_Model\\BLIP2_Finetuned_BDD100k_VQA\\data\\dummy_bdd100k\\bdd100k\\images\\100k\\val\\dummy_001_green_clear.jpg",
+    "question": "Is the traffic condition clear ahead?",
+    "answer": "Yes, it is safe to proceed because the vehicle ahead is far away and signals are clear.",
+    "meta": {
+      "front_vehicle_proximity": "far",
+      "front_vehicle_distance": 27.59,
+      "traffic_light": "green",
+      "weather": "clear",
+      "timeofday": "daytime"
+    }
+  },
+  {
+    "image": "C:\\Users\\pandy\\Downloads\\Blip_Model\\BLIP2_Finetuned_BDD100k_VQA\\data\\dummy_bdd100k\\bdd100k\\images\\100k\\val\\dummy_002_red_close_car.jpg",
+    "question": "Is it safe to proceed?",
+    "answer": "No, it is not safe to proceed because the traffic light is red and a close vehicle is ahead.",
+    "meta": {
+      "front_vehicle_proximity": "close",
+      "front_vehicle_distance": 5.33,
+      "traffic_light": "red",
+      "weather": "overcast",
+      "timeofday": "daytime"
+    }
+  },
+  {
+    "image": "C:\\Users\\pandy\\Downloads\\Blip_Model\\BLIP2_Finetuned_BDD100k_VQA\\data\\dummy_bdd100k\\bdd100k\\images\\100k\\val\\dummy_003_yellow_medium_car.jpg",
+    "question": "Is it safe to proceed?",
+    "answer": "Slow Down, it is generally safe to proceed, but caution is advised because the traffic light is yellow and a medium vehicle is ahead.",
+    "meta": {
+      "front_vehicle_proximity": "medium",
+      "front_vehicle_distance": 8.31,
+      "traffic_light": "yellow",
+      "weather": "clear",
+      "timeofday": "dawn/dusk"
+    }
+  },
+  {
+    "image": "C:\\Users\\pandy\\Downloads\\Blip_Model\\BLIP2_Finetuned_BDD100k_VQA\\data\\dummy_bdd100k\\bdd100k\\images\\100k\\val\\dummy_004_no_hazards.jpg",
+    "question": "Is the traffic condition clear ahead?",
+    "answer": "Yes, it is safe to proceed because the vehicle ahead is far away and signals are clear.",
+    "meta": {
+      "front_vehicle_proximity": "none",
+      "front_vehicle_distance": null,
+      "traffic_light": "none",
+      "weather": "clear",
+      "timeofday": "daytime"
+    }
+  },
+  {
+    "image": "C:\\Users\\pandy\\Downloads\\Blip_Model\\BLIP2_Finetuned_BDD100k_VQA\\data\\dummy_bdd100k\\bdd100k\\images\\100k\\val\\dummy_005_close_car_only.jpg",
+    "question": "Does the car need to stop?",
+    "answer": "No, it is not safe to proceed because a close vehicle is ahead.",
+    "meta": {
+      "front_vehicle_proximity": "close",
+      "front_vehicle_distance": 5.71,
+      "traffic_light": "none",
+      "weather": "rainy",
+      "timeofday": "night"
+    }
+  }
+]

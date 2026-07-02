@@ -1,8 +1,15 @@
 import json
 import random
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+
 import numpy as np
 from typing import Dict, Tuple, Optional, List
 
+from src.expection import CustomException
+from src.logger import logger
+from src.utils import get_env
 
 CLOSE_DISTANCE_THRESHOLD_M = 8.0
 MEDIUM_DISTANCE_THRESHOLD_M = 25.0
@@ -230,7 +237,7 @@ def generate_rationale(meta, answer, question):
     if meta["traffic_light"] != "none":
         reasons.append(f"the traffic light is {meta['traffic_light']}")
 
-    if meta["front_vehicle_proximity"] != "none" and meta["front_vehicle_distance"] != float('inf'):
+    if meta["front_vehicle_proximity"] != "none" and meta["front_vehicle_distance"] not in (None, float("inf")):
         dist_m = meta['front_vehicle_distance']
        
         reasons.append(f"a {meta['front_vehicle_proximity']} vehicle is ahead")
@@ -265,22 +272,28 @@ QUESTION_TEMPLATES = [
 ]
 
 
-def build_vqa_dataset(bdd_json_path, output_file):
+def build_vqa_dataset(bdd_json_path, output_file, image_root):
     """
     Loads BDD data, uses distance estimation, generates VQA entries, and saves.
+    Returns the list of generated VQA samples.
     """
+    image_root = Path(image_root)
+    output_file = Path(output_file)
     try:
-        with open(bdd_json_path, "r") as f:
+        with open(bdd_json_path, "r", encoding="utf-8") as f:
             data = json.load(f)
-    except FileNotFoundError:
-        print(f"Error: BDD JSON file not found at {bdd_json_path}. Please set a valid path.")
-        return
-    except json.JSONDecodeError:
-        print(f"Error: Could not decode JSON from {bdd_json_path}.")
-        return
+    except FileNotFoundError as error:
+        raise CustomException(
+            FileNotFoundError(f"BDD JSON file not found at {bdd_json_path}."),
+            sys,
+        ) from error
+    except json.JSONDecodeError as error:
+        raise CustomException(
+            ValueError(f"Could not decode JSON from {bdd_json_path}."),
+            sys,
+        ) from error
 
-    output = []
- 
+    output = [] 
     for item in data:
         if "labels" not in item or "attributes" not in item:
             continue
@@ -294,7 +307,11 @@ def build_vqa_dataset(bdd_json_path, output_file):
         # 2. Compile Metadata for VQA Decision
         meta = {
             "front_vehicle_proximity": vehicle_analysis["proximity"],
-            "front_vehicle_distance": vehicle_analysis["distance_m"] if vehicle_analysis["distance_m"] == float('inf') else round(vehicle_analysis["distance_m"], 2),
+            "front_vehicle_distance": (
+                None
+                if vehicle_analysis["distance_m"] == float("inf")
+                else round(vehicle_analysis["distance_m"], 2)
+            ),
             "traffic_light": get_traffic_light_color(labels),
             "weather": attrs.get("weather", "unknown"),
             "timeofday": attrs.get("timeofday", "unknown")
@@ -305,26 +322,84 @@ def build_vqa_dataset(bdd_json_path, output_file):
         answer = decide_answer(meta, question)
         rationale_with_decision = generate_rationale(meta, answer, question)
 
-    
-        path = '/kaggle/input/solesensei_bdd100k/bdd100k/bdd100k/images/100k/val/'
+        image_path = str((image_root / item.get("name", "unknown.jpg")).resolve())
 
         entry = {
-            "image": path + item.get("name", "unknown.jpg"),
+            "image": image_path,
             "question": question,
             "answer": rationale_with_decision,
             "meta": meta
         }
         output.append(entry)
 
-    with open(output_file, "w") as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2)
 
-    print(f"✅ Generated {len(output)} samples → {output_file}")
+    logger.info("Generated %s samples -> %s", len(output), output_file)
+    return output
 
 
+@dataclass
+class DataTransformationConfig:
+    seed: int = 42
+
+
+@dataclass
+class DataTransformationArtifact:
+    output_path: Path
+    num_samples: int
+
+
+class DataTransformation:
+    def __init__(self, config: DataTransformationConfig | None = None):
+        self.config = config or DataTransformationConfig(
+            seed=int(get_env("RANDOM_SEED", "42"))
+        )
+
+    def initiate_data_transformation(
+        self,
+        bdd_json_path: Path,
+        image_root: Path,
+        output_file: Path,
+    ) -> DataTransformationArtifact:
+        try:
+            random.seed(self.config.seed)
+            output_path = Path(output_file)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+
+            logger.info("Starting data transformation.")
+            logger.info("Labels: %s", bdd_json_path)
+            logger.info("Images: %s", image_root)
+            logger.info("Output: %s", output_path)
+
+            samples = build_vqa_dataset(
+                bdd_json_path=bdd_json_path,
+                output_file=output_path,
+                image_root=image_root,
+            )
+
+            if not samples:
+                raise CustomException(
+                    ValueError("No VQA samples were generated from the input labels."),
+                    sys,
+                )
+
+            artifact = DataTransformationArtifact(
+                output_path=output_path,
+                num_samples=len(samples),
+            )
+            logger.info("Data transformation completed: %s samples", artifact.num_samples)
+            return artifact
+
+        except CustomException:
+            raise
+        except Exception as error:
+            raise CustomException(error, sys) from error
 
 
 if __name__ == "__main__":
-    BDD_JSON_PATH = "bdd100k_labels_images.json"  # Update this path accordingly
-    build_vqa_dataset(BDD_JSON_PATH, "bdd100k_risk_vqa.json")
-
+    BDD_JSON_PATH = Path("bdd100k_labels_images.json")
+    IMAGE_ROOT = Path(".")
+    OUTPUT_PATH = Path("bdd100k_risk_vqa.json")
+    transformation = DataTransformation()
+    transformation.initiate_data_transformation(BDD_JSON_PATH, IMAGE_ROOT, OUTPUT_PATH)
